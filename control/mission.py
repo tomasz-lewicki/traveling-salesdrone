@@ -8,12 +8,15 @@ import geopy # could replace this with some standard ROS package, (maybe hector_
 import geopy.distance
 
 import numpy as np
+import mlrose 
 np.random.seed(14552)
 
 start_mavlink(connection_url="udp://:14552")
 drone = mavsdk_connect(host="127.0.0.1")
 
+# Coordinate part:
 
+N_POINTS = 10
 # Define starting point.
 origin = geopy.Point(37.331553, -121.882767)
 # Define azimuth
@@ -30,12 +33,19 @@ def translate_point(origin, dx, dy): # dx, dy in meters
     return dest
 
 # generate 30 points on campus (the dimensions of campus are 650 x 550m)
-points_metric = np.hstack([np.random.rand(30,1)*650, np.random.rand(30,1)*550])
+points_metric = np.hstack([np.random.rand(N_POINTS,1)*650, np.random.rand(N_POINTS,1)*550])
 
 # convert points from metric to (lat,lon,alt) frame
-points_geo = [translate_point(origin, dx, dy) for (dx, dy) in points_metric]
+points_geo = np.array([translate_point(origin, dx, dy) for (dx, dy) in points_metric])
 
+fitness_coords = mlrose.TravellingSales(coords = points_metric)
 
+problem_fit = mlrose.TSPOpt(length = N_POINTS, fitness_fn = fitness_coords, maximize = False)
+
+best_state, best_fitness = mlrose.genetic_alg(problem_fit, mutation_prob = 0.2, max_attempts = 100, random_state = 2)
+
+points_geo = points_geo[best_state]
+# Drone part:
 
 async def run():
     mission_items = []
