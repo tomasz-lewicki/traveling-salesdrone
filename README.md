@@ -29,7 +29,8 @@ python3 control/mission.py
 Below there are non-optimized and optimized flight paths.
 
 Non-optimized:
-![non-optimized](docs/random10points.png)
+![non-optimized](/docs/random10points.png)
 
-Optimized (video, 10x speed):
-[![Watch the video](https://img.youtube.com/vi/jAG2CS-mqwM/maxresdefault.jpg)](https://youtu.be/T-D1KVIuvjA)
+Optimized ([video](https://www.youtube.com/watch?v=jAG2CS-mqwM), 10x speed):
+
+[![Watch the video](https://img.youtube.com/vi/jAG2CS-mqwM/maxresdefault.jpg)](https://www.youtube.com/watch?v=jAG2CS-mqwM)
