@@ -3,7 +3,7 @@ geographiclib==1.50
 geopy==1.20.0
 grpcio==1.24.1
 importlib-resources==1.0.2
-joblib==0.14.0
+joblib==1.2.0
 mavsdk==0.2.0
 mlrose==1.2.0
 numpy==1.17.2
